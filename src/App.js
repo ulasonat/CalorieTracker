@@ -5,6 +5,13 @@ import "./App.css";
 
 //This class will contain the Navigation Bar
 class NavBar extends React.Component{
+  render(){
+    return(
+      <div>
+        <Nav/>
+      </div>
+    )
+  }
 }
 
 //this class will be a sidebar that contais food items that were added in the current session
@@ -17,7 +24,16 @@ class RecentlHistory extends React.Component{
 
 //This will be the SearchBar
 class SearchBar extends React.Component{
-
+  render(){
+    return(
+      <div>
+        <p>
+           Hey <b>[user], </b>here is how to track your calorie consumption:
+        </p>
+        <Form/>
+      </div>
+    )
+  }
 }
 
 
@@ -29,12 +45,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Nav />
+        <NavBar/>
         <header className="App-header">
-        <p>
-          Hey <b>[user], </b>here is how to track your calorie consumption:
-        </p>
-        <Form/>
+        <SearchBar/>
         </header>
       </div>
     );
