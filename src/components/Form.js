@@ -8,7 +8,7 @@ export default function Form() {
           <ReactBootstrap.Form.Label>Food name:</ReactBootstrap.Form.Label>
           <ReactBootstrap.Form.Control
             type="text"
-            placeholder="e.g spaghetti"
+            placeholder="e.g banana"
           />
           {/* <ReactBootstrap.Form.Text className="text-muted">
                 We'll never share your email with anyone else.
