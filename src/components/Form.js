@@ -7,7 +7,7 @@ export default function Form() {
         <ReactBootstrap.Form.Group controlId="formBasicEmail">
           <ReactBootstrap.Form.Label>Food name:</ReactBootstrap.Form.Label>
           <ReactBootstrap.Form.Control
-            type="email"
+            type="text"
             placeholder="e.g spaghetti"
           />
           {/* <ReactBootstrap.Form.Text className="text-muted">
