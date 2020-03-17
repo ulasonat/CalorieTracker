@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Name
+Calorie Counter
+
+## Description
+We are working on a web-based service to track the amount of calories being consumed by the users over a selected period of time. Users will have their own accounts where they can save their consumption history. They can select a variety of food from a list and add it to their daily sum of calories. We plan to use cloud services and an API from a 3rd party service that has an extensive database of food selection.
+
 ## Available Scripts
 
 In the project directory, you can run:
