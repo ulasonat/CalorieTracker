@@ -1,0 +1,69 @@
+[33mcommit a07a9b0ccadb56447748c7a40a489923bebf75ef[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: ipl4dc <ipl4dc@inf.elte.hu>
+Date:   Tue Mar 17 22:27:09 2020 +0100
+
+    Added the basic classs structure
+
+[33mcommit 9195babc932269ff114d550db1f7edc9741b44e4[m[33m ([m[1;31morigin/dev[m[33m, [m[1;32mdev[m[33m)[m
+Author: Fardin Shikhiyev <shihiyev@caesar.elte.hu>
+Date:   Tue Mar 17 21:58:04 2020 +0100
+
+    Fixed type of the search box.
+
+[33mcommit 49f6aaa4e4b77d9179d16f29317553f4d461d3be[m
+Author: Fardin Shikhiyev <shihiyev@caesar.elte.hu>
+Date:   Tue Mar 17 21:56:01 2020 +0100
+
+    Revert "Fixed the type of search box."
+    
+    This reverts commit 996fbee7b83217c32fbe1dccf764367135e33815.
+
+[33mcommit 0802009ad7b444183158cdfe6893cae0f228d655[m
+Author: Fardin Shikhiyev <shihiyev@caesar.elte.hu>
+Date:   Tue Mar 17 21:53:53 2020 +0100
+
+    Revert "Fixed the type of search box."
+    
+    This reverts commit 996fbee7b83217c32fbe1dccf764367135e33815.
+
+[33mcommit 13aa7ff890c3e861ac49d0c58ec314d335ca9bdf[m
+Merge: 996fbee bf7d4aa
+Author: Fardin Shikhiyev <shikhiyev@caesar.elte.hu>
+Date:   Tue Mar 17 21:46:37 2020 +0100
+
+    Merge branch 'master' of https://github.com/tools-of-software-projects/calorie-tracker
+
+[33mcommit 996fbee7b83217c32fbe1dccf764367135e33815[m
+Author: Fardin Shikhiyev <shikhiyev@caesar.elte.hu>
+Date:   Tue Mar 17 21:45:39 2020 +0100
+
+    Fixed the type of search box.
+
+[33mcommit bf7d4aa598746981e013d81540794c6a0b50e037[m
+Merge: 41589b7 cb27c22
+Author: Fardin Shikhiyev <shihiyev@caesar.elte.hu>
+Date:   Tue Mar 17 21:21:37 2020 +0100
+
+    Merge pull request #1 from ulasonat/master
+    
+    Appending project name and description
+
+[33mcommit cb27c220e37df9091bed45aa9ac292b3cd1fe54e[m
+Author: Ulas Alakent <36856525+ulasonat@users.noreply.github.com>
+Date:   Mon Mar 16 21:06:46 2020 +0100
+
+    Appending project name and description
+    
+    Appending project name and description in the README.md file
+
+[33mcommit 41589b78f382d3752daa79315553b953203a96a5[m
+Author: Ali Bayramli <alibayramli97@gmail.com>
+Date:   Fri Mar 13 00:55:49 2020 +0100
+
+    Added introduction page
+
+[33mcommit 73cbc96680bcaac8d5ae9e98144d7ed9f210122a[m
+Author: Ali Bayramli <alibayramli97@gmail.com>
+Date:   Fri Mar 13 00:49:25 2020 +0100
+
+    Created repository by adding setup  and dependency scripts
