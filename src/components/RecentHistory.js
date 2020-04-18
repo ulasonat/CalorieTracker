@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 
 //This class will be a sidebar that contains the food items that were added in older sessions(this will be a historylike feature )
-export class RecentHistory extends Component {
-  render() {
+export function RecentHistory(props) {
     return <div></div>;
-  }
 }
 
 export default RecentHistory;
