@@ -2,9 +2,9 @@ import React from "react";
 import Nav from "./components/Nav";
 import "./App.css";
 import Body from "./components/Body";
-function App(props){
+function App(){
     return (
-      <div className="App">
+      <div>
         <Nav />
         <Body />
       </div>

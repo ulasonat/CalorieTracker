@@ -2,7 +2,7 @@
   "name": "caloriecounter",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://tools-of-software-projects.github.io/calorie-tracker",
+  "homepage": "https://calorie-tracker-tools.herokuapp.com/",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",
