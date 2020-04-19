@@ -10,6 +10,10 @@ We are working on a web-based service to track the amount of calories being cons
 
 In the project directory, you can run:
 
+### `npm run launch`
+
+Installs all the modules and runs the app in the development mode.
+
 ### `npm start`
 
 Runs the app in the development mode.<br />
