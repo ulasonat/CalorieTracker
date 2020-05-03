@@ -12,39 +12,39 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6)
+    padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(4)
+    marginBottom: theme.spacing(4),
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8)
+    paddingBottom: theme.spacing(8),
   },
   card: {
     height: "100%",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   cardContent: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 const cards = [1];
 export default function Album() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    amount: ""
+    amount: "",
   });
-  const handleChange = prop => event => {
+  const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -55,7 +55,7 @@ export default function Album() {
       <main>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {cards.map(card => (
+            {cards.map((card) => (
               <Grid item key={card} xs={12} sm={12} md={12}>
                 <Card className={classes.card}>
                   <CardMedia
