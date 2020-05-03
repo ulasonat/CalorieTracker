@@ -63,24 +63,6 @@ jobs:
           file: ~/status.svg
           remote_file: $CIRCLE_BRANCH.$CIRCLE_JOB.svg
           host: docs
-  executors:
-    v8:
-      environment:
-        LANG: en_US.UTF-8
-      docker:
-       - image: circleci/node:8-buster
-    v10:
-      environment:
-        LANG: en_US.UTF-8
-      docker:
-       - image: circleci/node:10-buster
-    v12:
-      environment:
-        LANG: en_US.UTF-8
-      docker:
-       - image: circleci/node:12-buster
-
-
 
 
   build-and-test:
