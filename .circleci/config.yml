@@ -1,120 +1,120 @@
-version: 2.1
-orbs:
-  node: circleci/node@1.1.6
-  react: thefrontside/react@0.2.0
-  eslint: arrai/eslint@1.2.1
-  
-
-
-jobs:
-  eslint:
-    parameters:
-      wd:
-        type: string
-        default: ~/project
-      files:
-        type: string
-        default: lib/**
-      executor:
-        type: executor
-        default: v8
-    executor: <<parameters.executor>>
-    steps:
-      - run:
-          command: |
-            mkdir -p ~/reports
-            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
-          when: always
-      - store_test_results:
-          path: ~/reports
-      - store_artifacts:
-          path: ~/reports   
-      - checkout
-      - utils/add_ssh_config
-      - run:
-          name: Install additional OS packages
-          command: sudo apt-get install rsync
-      - run:
-          name: Install the latest eslint
-          command: sudo npm install -g eslint
-      - run:
-          name: Run eslint
-          command: |
-            cd <<parameters.wd>>
-            eslint --color <<parameters.files>> | tee ~/lint
-      - utils/make_status_shield:
-          when: on_fail
-          status: errors
-          color: red
-          logo: eslint
-      - run:
-          name: Check if we had any warnings
-          when: always
-          command: test ! -s ~/lint
-      - utils/make_status_shield:
-          when: always
-          status: warnings
-          color: orange
-          logo: eslint
-          preserve: true
-      - utils/make_status_shield:
-          when: on_success
-          status: passed
-          color: brightgreen
-          logo: eslint
-      - utils/rsync_file:
-          when: always
-          file: ~/status.svg
-          remote_file: $CIRCLE_BRANCH.$CIRCLE_JOB.svg
-          host: docs
-
-
-  build-and-test:
-    executor:
-      name: node/default
-    steps:
-      - run:
-          name: Creating Dummy Artifacts
-          command: |
-            echo "my artifact file" > /tmp/artifact-1;
-            mkdir /tmp/artifacts;
-            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
-
-      - store_artifacts:
-          path: /tmp/artifact-1
-          destination: artifact-file
-
-      - store_artifacts:
-          path: /tmp/artifacts
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
-
-executors:
-  v8:
-    environment:
-        LANG: en_US.UTF-8
-    docker:
-     - image: circleci/node:8.15.1
-  v10:
-    environment:
-        LANG: en_US.UTF-8
-    docker:
-     - image: circleci/node:10.15.3
-
- 
-workflows:
-  push:
-    jobs:
-      - react/install
-      - react/eslint:
-          requires:
-            - react/install
-      - react/test:
-          requires:
-            - react/install
-      - react/coverage:
-          requires:
-            - react/install
+# version: 2.1
+# orbs:
+#   node: circleci/node@1.1.6
+#   react: thefrontside/react@0.2.0
+#   eslint: arrai/eslint@1.2.1
+#
+#
+#
+# jobs:
+#   eslint:
+#     parameters:
+#       wd:
+#         type: string
+#         default: ~/project
+#       files:
+#         type: string
+#         default: lib/**
+#       executor:
+#         type: executor
+#         default: v8
+#     executor: <<parameters.executor>>
+#     steps:
+#       - run:
+#           command: |
+#             mkdir -p ~/reports
+#             eslint ./src/ --format junit --output-file ~/reports/eslint.xml
+#           when: always
+#       - store_test_results:
+#           path: ~/reports
+#       - store_artifacts:
+#           path: ~/reports
+#       - checkout
+#       - utils/add_ssh_config
+#       - run:
+#           name: Install additional OS packages
+#           command: sudo apt-get install rsync
+#       - run:
+#           name: Install the latest eslint
+#           command: sudo npm install -g eslint
+#       - run:
+#           name: Run eslint
+#           command: |
+#             cd <<parameters.wd>>
+#             eslint --color <<parameters.files>> | tee ~/lint
+#       - utils/make_status_shield:
+#           when: on_fail
+#           status: errors
+#           color: red
+#           logo: eslint
+#       - run:
+#           name: Check if we had any warnings
+#           when: always
+#           command: test ! -s ~/lint
+#       - utils/make_status_shield:
+#           when: always
+#           status: warnings
+#           color: orange
+#           logo: eslint
+#           preserve: true
+#       - utils/make_status_shield:
+#           when: on_success
+#           status: passed
+#           color: brightgreen
+#           logo: eslint
+#       - utils/rsync_file:
+#           when: always
+#           file: ~/status.svg
+#           remote_file: $CIRCLE_BRANCH.$CIRCLE_JOB.svg
+#           host: docs
+#
+#
+#   build-and-test:
+#     executor:
+#       name: node/default
+#     steps:
+#       - run:
+#           name: Creating Dummy Artifacts
+#           command: |
+#             echo "my artifact file" > /tmp/artifact-1;
+#             mkdir /tmp/artifacts;
+#             echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+#
+#       - store_artifacts:
+#           path: /tmp/artifact-1
+#           destination: artifact-file
+#
+#       - store_artifacts:
+#           path: /tmp/artifacts
+#       - checkout
+#       - node/with-cache:
+#           steps:
+#             - run: npm install
+#             - run: npm test
+#
+# executors:
+#   v8:
+#     environment:
+#         LANG: en_US.UTF-8
+#     docker:
+#      - image: circleci/node:8.15.1
+#   v10:
+#     environment:
+#         LANG: en_US.UTF-8
+#     docker:
+#      - image: circleci/node:10.15.3
+#
+#
+# workflows:
+#   push:
+#     jobs:
+#       - react/install
+#       - react/eslint:
+#           requires:
+#             - react/install
+#       - react/test:
+#           requires:
+#             - react/install
+#       - react/coverage:
+#           requires:
+#             - react/install
