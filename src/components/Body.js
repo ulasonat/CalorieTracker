@@ -6,13 +6,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,27 +53,51 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
 
 }));
 
 const cards = [1];
 export default function Album() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+
   const [values, setValues] = React.useState({
     amount: "",
   });
+  const [name, setName] = React.useState({
+    name: "",
+  });
   const [foodArray, setFoodArray] = useState([]);
-  const handleChange = (prop) => (event) => {
+  const sumOfCalories = foodArray.reduce((acc, el) => acc + el[1], 0);
+  const [period, setPeriod] = React.useState('');
+  const caloriePerTimePeriod = {
+    daily: 400,
+    weekly: 800,
+    monthly: 1200
+  }
+  const handleFoodName = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+  };
+  const handleName = (prop) => (event) => {
+    setName({ ...name, [prop]: event.target.value });
+  };
+  const handlePeriod = (event) => {
+    setPeriod(event.target.value);
+
   };
 
 
   const getData = async (e) => {
     e.preventDefault();
-    // alert('should work now')
 
     const key = "w7DyjpgMFLEiaPqWTS3UVqrOnJ7zaMsm8Y39JJg0";
+
     fetch(
       `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}&query=${values.amount}`)
       .then(res => res.json())
@@ -87,11 +112,13 @@ export default function Album() {
         let ingredients = response.foods[0].ingredients;
         console.log(Math.max(...calorieArray));
         foodArray.push([desc, calorie, date + ' ' + time, ingredients === undefined ? "no data" : ingredients]);
-        console.log('Size of the array is: ' + foodArray.length + " " + " decription: " + desc +
-          "cal: " + calorie);
+        // console.log('Size of the array is: ' + foodArray.length + " " + " decription: " + desc +
+        //   "cal: " + calorie);
 
       })
       .catch(error => console.log(error));
+
+
 
   };
 
@@ -118,24 +145,68 @@ export default function Album() {
                     color="dark"
                     paragraph
                   >
-                    Hey [user], here is how to track your calorie consumption:
+                    Hey {name.name.length === 0 ? "[user]" : name.name}, here is how to track your calorie consumption:
                     </Typography>
-
                   <FormControl fullWidth className={classes.margin}>
                     <InputLabel htmlFor="standard-adornment-amount">
-                      Enter a food name
+                      your name
+                      </InputLabel>
+                    <Input
+                      id="standard-adornment-amount"
+                      value={name.name}
+                      onChange={handleName("name")}
+                      placeholder="name"
+                    />
+                  </FormControl> <br /> <br />
+                  <FormControl fullWidth className={classes.margin}>
+                    <InputLabel htmlFor="standard-adornment-amount">
+                      food name
                       </InputLabel>
                     <Input
                       id="standard-adornment-amount"
                       value={values.amount}
-                      onChange={handleChange("amount")}
+                      onChange={handleFoodName("amount")}
                       placeholder="e.g banana"
                     />
+                  </FormControl><br />
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-label">time period</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={period}
+                      onChange={handlePeriod}
+                    >
+
+                      <MenuItem value={"daily"}>Daily</MenuItem>
+                      <MenuItem value={"weekly"}>Weekly</MenuItem>
+                      <MenuItem value={"monthly"}>Monthly</MenuItem>
+                    </Select>
                   </FormControl>
+                  {/* <FormControl className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-label">calorie amount</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={period}
+                      onChange={handlePeriod}
+                    >
+
+                      <MenuItem value={"daily"}>Daily</MenuItem>
+                      <MenuItem value={"weekly"}>Weekly</MenuItem>
+                      <MenuItem value={"monthly"}>Monthly</MenuItem>
+                    </Select>
+                  </FormControl> <br /> */}
+                  <Typography style={{ fontSize: "100%", color: "grey" }}>
+                    {period.length !== 0 ? `Limit for ${period} calorie: ${caloriePerTimePeriod[period] + " (in kcal)"}` : null}
+
+
+
+                  </Typography>
                   <div className={classes.heroButtons}>
                     <Grid container spacing={2} justify="center">
                       <Grid item>
-                        <Button onClick={getData} variant="contained" color="primary">
+                        <Button onClick={getData} variant="contained" color="primary" disabled={values.amount.length === 0 || period.length === 0}>
                           Track
                           </Button>
                       </Grid>
@@ -147,6 +218,14 @@ export default function Album() {
           ))}
         </Grid>
         <br></br>
+        <Typography
+          variant="h5"
+          align="center"
+          color="dark"
+          paragraph
+        >
+          {sumOfCalories !== 0 ? `Sum of the calories: ${sumOfCalories}(in kcal)` : null}
+        </Typography>
         {foodArray.map((el, index) => {
           return <Card key={index} className={classes.root} variant="outlined" style={{ margin: "2%" }}>
             <CardContent>
