@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "./Footer";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
@@ -47,6 +47,31 @@ export default function Album() {
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
+  const [ingredients, setIngredients] = useState("");
+  const [calorie, setCalorie] = useState("");
+
+  console.log("Idk what I am doing: " + values.amount);
+
+  const getData = (e) => {
+    console.log("Clicked one: " + ingredients + calorie);
+  };
+  useEffect(() => {
+    const key = "w7DyjpgMFLEiaPqWTS3UVqrOnJ7zaMsm8Y39JJg0";
+    fetch(
+      `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}&query=${values.amount}`)
+      .then(res => res.json())
+      .then(response => {
+        console.log('works');
+        setIngredients("testing desc: " + response.foods[0].description);
+        let calorieArray = response.foods[0].foodNutrients.map(el => el.unitName === "KCAL" ? el.value : 0);
+        console.log('Array \n');
+        console.log(Math.max(...calorieArray));
+        setCalorie(Math.max(...calorieArray));
+        // response.foods.foodNutrients.map(el => { el.unitName === "KCAL" ? setCalorie(el.value) : setCalorie(0) })
+        // console.log("Calorie for the typed food: " + calorie);
+      })
+      .catch(error => console.log('doesnt work'));
+  });
 
   return (
     <React.Fragment>
@@ -88,7 +113,7 @@ export default function Album() {
                     <div className={classes.heroButtons}>
                       <Grid container spacing={2} justify="center">
                         <Grid item>
-                          <Button variant="contained" color="primary">
+                          <Button onClick={getData} variant="contained" color="primary">
                             Track
                           </Button>
                         </Grid>
