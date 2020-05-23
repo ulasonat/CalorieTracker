@@ -74,7 +74,7 @@ export default function Album() {
     name: "",
   });
   const [foodArray, setFoodArray] = useState([]);
-  const sumOfCalories = foodArray.reduce((acc, el) => acc + el[1], 0);
+  let sumOfCalories = foodArray.reduce((acc, el) => acc + el[1], 0);
   const [period, setPeriod] = React.useState('');
   const caloriePerTimePeriod = {
     daily: 400,
@@ -224,7 +224,11 @@ export default function Album() {
           color="dark"
           paragraph
         >
-          {sumOfCalories !== 0 ? `Sum of the calories: ${sumOfCalories}(in kcal)` : null}
+
+          {sumOfCalories !== 0 ? `Sum of the calories: ${sumOfCalories} ` : null}
+          <br /><br />
+          {sumOfCalories > caloriePerTimePeriod[period] ? `Congrats! You reached your ${period} limit ` : null}
+          {sumOfCalories < caloriePerTimePeriod[period] && sumOfCalories !== 0 ? `you need ${caloriePerTimePeriod[period] - sumOfCalories} to reach your goal!` : null}
         </Typography>
         {foodArray.map((el, index) => {
           return <Card key={index} className={classes.root} variant="outlined" style={{ margin: "2%" }}>
@@ -236,7 +240,7 @@ export default function Album() {
                 <h2>Description: {el[0]}</h2>
               </Typography>
               <Typography variant="body2" component="p">
-                <h2>KCAL: <span style={{ color: 'green' }}>{el[1]}</span></h2>
+                <h2>KCAL: <span style={{ color: 'blue' }}>{el[1]}</span></h2>
               </Typography>
               <Typography variant="body2" component="p">
                 <h2>Key Ingredients: </h2>{el[3]}
