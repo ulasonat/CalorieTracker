@@ -93,7 +93,8 @@ export default function Album() {
   };
   const handlePeriod = (event) => {
     setPeriod(event.target.value);
-
+    setFoodArray([]);
+    setSumOfCalories(0);
   };
 
 
@@ -229,9 +230,10 @@ export default function Album() {
           color="dark"
           paragraph
         >
+
           <p style={{ display: sumOfCalories !== 0 ? "block" : "none" }}>Sum of the calories: <span style={{ color: sumOfCalories > caloriePerTimePeriod[period] ? "green" : "black" }}>{sumOfCalories}</span> (in kcal)</p>
 
-          <br />
+
           {sumOfCalories > caloriePerTimePeriod[period] ? `Congrats! You reached your ${period} limit ` : null}
           {sumOfCalories < caloriePerTimePeriod[period] && sumOfCalories !== 0 ? `you need ${caloriePerTimePeriod[period] - sumOfCalories} kcal to reach your goal!` : null}
         </Typography>
