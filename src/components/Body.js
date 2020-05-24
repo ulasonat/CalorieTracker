@@ -78,9 +78,9 @@ export default function Album() {
 
   const [period, setPeriod] = React.useState('');
   const caloriePerTimePeriod = {
-    daily: 400,
-    weekly: 800,
-    monthly: 1200
+    daily: 800,
+    weekly: 1600,
+    monthly: 2400
   }
   const handleFoodName = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });

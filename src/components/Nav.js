@@ -4,12 +4,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles(theme => ({
@@ -90,8 +87,8 @@ export default function Nav() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Recent history</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Recently added</MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>Recent history</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Recently added</MenuItem> */}
     </Menu>
   );
 
@@ -106,7 +103,7 @@ export default function Nav() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <MailIcon />
@@ -121,7 +118,7 @@ export default function Nav() {
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -131,7 +128,7 @@ export default function Nav() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>My account</p>
       </MenuItem>
     </Menu>
   );

@@ -7,10 +7,7 @@ function App() {
     <div>
       <Nav />
       <Body />
-      {console.log("cd works as expected!")}
     </div>
   )
 }
-
-
 export default App;
