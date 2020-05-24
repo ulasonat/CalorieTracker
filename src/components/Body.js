@@ -83,9 +83,9 @@ export default function Album() {
   let [isValidDays, setisValidDays] = useState(false);
   const [period, setPeriod] = React.useState('');
   const caloriePerTimePeriod = {
-    daily: 800,
-    weekly: 1600,
-    monthly: 2400,
+    daily: 500,
+    weekly: 500 * 7,
+    monthly: 500 * 30,
     custom: 500 * customDay.days
   }
 
