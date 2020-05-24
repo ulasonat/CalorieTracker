@@ -7,12 +7,11 @@ import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-let unusedVarForDemo = 0;
+
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1

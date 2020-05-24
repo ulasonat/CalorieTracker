@@ -74,7 +74,8 @@ export default function Album() {
     name: "",
   });
   const [foodArray, setFoodArray] = useState([]);
-  let sumOfCalories = foodArray.reduce((acc, el) => acc + el[1], 0);
+  let [sumOfCalories, setSumOfCalories] = useState(0);
+
   const [period, setPeriod] = React.useState('');
   const caloriePerTimePeriod = {
     daily: 400,
@@ -86,6 +87,9 @@ export default function Album() {
   };
   const handleName = (prop) => (event) => {
     setName({ ...name, [prop]: event.target.value });
+    setPeriod('');
+    setFoodArray([]);
+    setSumOfCalories(0);
   };
   const handlePeriod = (event) => {
     setPeriod(event.target.value);
@@ -114,6 +118,7 @@ export default function Album() {
         foodArray.push([desc, calorie, date + ' ' + time, ingredients === undefined ? "no data" : ingredients]);
         // console.log('Size of the array is: ' + foodArray.length + " " + " decription: " + desc +
         //   "cal: " + calorie);
+        setSumOfCalories(foodArray.reduce((acc, el) => acc + el[1], 0));
 
       })
       .catch(error => console.log(error));
@@ -206,7 +211,7 @@ export default function Album() {
                   <div className={classes.heroButtons}>
                     <Grid container spacing={2} justify="center">
                       <Grid item>
-                        <Button onClick={getData} variant="contained" color="primary" disabled={values.amount.length === 0 || period.length === 0}>
+                        <Button onClick={getData} variant="contained" color="primary" disabled={values.amount.length === 0 || period.length === 0 || name.name.length === 0}>
                           Track
                           </Button>
                       </Grid>
@@ -224,11 +229,11 @@ export default function Album() {
           color="dark"
           paragraph
         >
+          <p style={{ display: sumOfCalories !== 0 ? "block" : "none" }}>Sum of the calories: <span style={{ color: sumOfCalories > caloriePerTimePeriod[period] ? "green" : "black" }}>{sumOfCalories}</span> (in kcal)</p>
 
-          {sumOfCalories !== 0 ? `Sum of the calories: ${sumOfCalories} ` : null}
-          <br /><br />
+          <br />
           {sumOfCalories > caloriePerTimePeriod[period] ? `Congrats! You reached your ${period} limit ` : null}
-          {sumOfCalories < caloriePerTimePeriod[period] && sumOfCalories !== 0 ? `you need ${caloriePerTimePeriod[period] - sumOfCalories} to reach your goal!` : null}
+          {sumOfCalories < caloriePerTimePeriod[period] && sumOfCalories !== 0 ? `you need ${caloriePerTimePeriod[period] - sumOfCalories} kcal to reach your goal!` : null}
         </Typography>
         {foodArray.map((el, index) => {
           return <Card key={index} className={classes.root} variant="outlined" style={{ margin: "2%" }}>
@@ -240,7 +245,7 @@ export default function Album() {
                 <h2>Description: {el[0]}</h2>
               </Typography>
               <Typography variant="body2" component="p">
-                <h2>KCAL: <span style={{ color: 'blue' }}>{el[1]}</span></h2>
+                <h2>KCAL (per 100g): <span style={{ color: 'blue' }}>{el[1]}</span></h2>
               </Typography>
               <Typography variant="body2" component="p">
                 <h2>Key Ingredients: </h2>{el[3]}
