@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,18 +71,30 @@ export default function Album() {
   const [values, setValues] = React.useState({
     amount: "",
   });
+  const [customDay, setCustomDay] = React.useState({
+    days: "",
+  });
   const [name, setName] = React.useState({
     name: "",
   });
   const [foodArray, setFoodArray] = useState([]);
   let [sumOfCalories, setSumOfCalories] = useState(0);
   let [isFetched, setisFetched] = useState(true);
+  let [isValidDays, setisValidDays] = useState(false);
   const [period, setPeriod] = React.useState('');
   const caloriePerTimePeriod = {
     daily: 800,
     weekly: 1600,
-    monthly: 2400
+    monthly: 2400,
+    custom: 500 * customDay.days
   }
+
+  const handleCustomDay = (prop) => (event) => {
+    setCustomDay({ ...customDay, [prop]: event.target.value });
+    if (customDay.days !== 0) {
+      setisValidDays(true);
+    }
+  };
   const handleFoodName = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -198,8 +211,21 @@ export default function Album() {
                       <MenuItem value={"daily"}>Daily</MenuItem>
                       <MenuItem value={"weekly"}>Weekly</MenuItem>
                       <MenuItem value={"monthly"}>Monthly</MenuItem>
+                      <MenuItem value={"custom"}>Custom</MenuItem>
                     </Select>
+                    <TextField style={{ display: period === "custom" ? "inline-block" : "none" }}
+                      id="standard-number"
+                      label="Days"
+                      type="number"
+                      value={customDay.days}
+                      onChange={handleCustomDay("days")}
+                      placeholder="e.g 3"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
                   </FormControl>
+                  <br />
                   {/* <FormControl className={classes.formControl}>
                     <InputLabel id="demo-simple-select-label">calorie amount</InputLabel>
                     <Select
@@ -215,15 +241,16 @@ export default function Album() {
                     </Select>
                   </FormControl> <br /> */}
                   <Typography style={{ fontSize: "100%", color: "grey" }}>
-                    {period.length !== 0 ? `Limit for ${period} calorie: ${caloriePerTimePeriod[period] + " (in kcal)"}` : null}
-
+                    {period.length !== 0 && period !== "custom" ? `Limit for ${period} calorie: ${caloriePerTimePeriod[period] + " (in kcal)"}` : null}
+                    {period.length !== 0 && period === "custom" ? `Limit for ${period} calorie: ${caloriePerTimePeriod[period] + " (in kcal, 1 day = 500 kcal)"}` : null}
 
 
                   </Typography>
+
                   <div className={classes.heroButtons}>
                     <Grid container spacing={2} justify="center">
                       <Grid item>
-                        <Button onClick={getData} variant="contained" color="primary" disabled={values.amount.length === 0 || period.length === 0 || name.name.length === 0}>
+                        <Button onClick={getData} variant="contained" color="primary" disabled={(values.amount.length === 0 || period.length === 0 || name.name.length === 0)}>
                           Track
                           </Button>
                       </Grid>
@@ -243,9 +270,7 @@ export default function Album() {
         >
 
           <p style={{ display: sumOfCalories !== 0 ? "block" : "none" }}>Sum of the calories: <span style={{ color: sumOfCalories > caloriePerTimePeriod[period] ? "green" : "black" }}>{sumOfCalories}</span> (in kcal)</p>
-
-
-          {sumOfCalories > caloriePerTimePeriod[period] ? `Congrats! You reached your ${period} limit ` : null}
+          {sumOfCalories > caloriePerTimePeriod[period] && caloriePerTimePeriod[period] !== 0 ? `Congrats! You reached your ${period} limit ` : null}
           {sumOfCalories < caloriePerTimePeriod[period] && sumOfCalories !== 0 ? `you need ${caloriePerTimePeriod[period] - sumOfCalories} kcal to reach your goal!` : null}
         </Typography>
         {foodArray.map((el, index) => {
