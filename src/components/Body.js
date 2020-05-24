@@ -75,7 +75,7 @@ export default function Album() {
   });
   const [foodArray, setFoodArray] = useState([]);
   let [sumOfCalories, setSumOfCalories] = useState(0);
-
+  let [isFetched, setisFetched] = useState(true);
   const [period, setPeriod] = React.useState('');
   const caloriePerTimePeriod = {
     daily: 800,
@@ -107,19 +107,25 @@ export default function Album() {
       `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}&query=${values.amount}`)
       .then(res => res.json())
       .then(response => {
+        if (+response.totalHits > 0) {
+          setisFetched(true);
+          let desc = response.foods[0].description;
+          let calorieArray = response.foods[0].foodNutrients.map(el => el.unitName === "KCAL" ? el.value : 0);
+          let calorie = Math.max(...calorieArray);
+          let now = new Date();
+          let date = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+          let time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+          let ingredients = response.foods[0].ingredients;
+          console.log(Math.max(...calorieArray));
 
-        let desc = response.foods[0].description;
-        let calorieArray = response.foods[0].foodNutrients.map(el => el.unitName === "KCAL" ? el.value : 0);
-        let calorie = Math.max(...calorieArray);
-        let now = new Date();
-        let date = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
-        let time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-        let ingredients = response.foods[0].ingredients;
-        console.log(Math.max(...calorieArray));
-        foodArray.push([desc, calorie, date + ' ' + time, ingredients === undefined ? "no data" : ingredients]);
-        // console.log('Size of the array is: ' + foodArray.length + " " + " decription: " + desc +
-        //   "cal: " + calorie);
-        setSumOfCalories(foodArray.reduce((acc, el) => acc + el[1], 0));
+          foodArray.push([desc, calorie, date + ' ' + time, ingredients === undefined ? "no data" : ingredients]);
+          // console.log('Size of the array is: ' + foodArray.length + " " + " decription: " + desc +
+          //   "cal: " + calorie);
+          setSumOfCalories(foodArray.reduce((acc, el) => acc + el[1], 0));
+        } else {
+          setisFetched(false);
+        }
+
 
       })
       .catch(error => console.log(error));
@@ -166,7 +172,7 @@ export default function Album() {
                   </FormControl> <br /> <br />
                   <FormControl fullWidth className={classes.margin}>
                     <InputLabel htmlFor="standard-adornment-amount">
-                      food name
+                      consumed food name
                       </InputLabel>
                     <Input
                       id="standard-adornment-amount"
@@ -175,6 +181,11 @@ export default function Album() {
                       placeholder="e.g banana"
                     />
                   </FormControl><br />
+                  <Typography style={{ fontSize: "100%", color: "crimson" }}>
+                    <br></br>
+                    {!isFetched ? `food you consumed is not in the database` : null}
+
+                  </Typography>
                   <FormControl className={classes.formControl}>
                     <InputLabel id="demo-simple-select-label">time period</InputLabel>
                     <Select
