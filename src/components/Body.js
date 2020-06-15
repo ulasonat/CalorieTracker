@@ -185,7 +185,7 @@ export default function Album() {
                   </FormControl> <br /> <br />
                   <FormControl fullWidth className={classes.margin}>
                     <InputLabel htmlFor="standard-adornment-amount">
-                      consumed food name
+                      consumed food 
                       </InputLabel>
                     <Input
                       id="standard-adornment-amount"
