@@ -1,5 +1,7 @@
 # Calorie Tracker
 
+<img src="https://img.shields.io/github/license/ulasonat/CalorieTracker">
+
 ## Description
 Calorie Counter is a web-based service that allows users to track the amount of calories they have consumed over a selected period of time. Users are given accounts to save their consumption history, and can select from a variety of food options to add to their daily sum of calories. The service uses cloud services and an API from a 3rd party provider with an extensive database of food selection.
 
