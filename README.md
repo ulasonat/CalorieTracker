@@ -1,49 +1,27 @@
-## Project Name
-Calorie Counter
+# Calorie Tracker
 
 ## Description
-We are working on a web-based service to track the amount of calories being consumed by the users over a selected period of time. Users will have their own accounts where they can save their consumption history. They can select a variety of food from a list and add it to their daily sum of calories. We plan to use cloud services and an API from a 3rd party service that has an extensive database of food selection.
+Calorie Counter is a web-based service that allows users to track the amount of calories they have consumed over a selected period of time. Users are given accounts to save their consumption history, and can select from a variety of food options to add to their daily sum of calories. The service uses cloud services and an API from a 3rd party provider with an extensive database of food selection.
 
 ## Documentation
-The documentation of the project can be accessed within the project folder, it's PDF file named Documentation.pdf
+The project documentation can be accessed within the project folder as a PDF file named Documentation.pdf.
 
 ## Available Scripts
-
 In the project directory, you can run:
 
 ### `npm run launch`
-
 Installs all the modules and runs the app in the development mode.
 
 ### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits, and you will see any lint errors in the console.
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the app for production to the `build` folder. The app is bundled for production, and the build is optimized for the best performance. The file names are hashed and minified. The app is then ready to be deployed. See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
-
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This command removes the single build dependency from your project. Instead, it copies all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc.) directly into your project, giving you full control over them. All the commands except `eject` will still work, but they will point to the copied scripts so that you can adjust them. You should only use `eject` when you are ready to customize your build tool and configuration choices.
